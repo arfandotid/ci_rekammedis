@@ -48,7 +48,7 @@
                                     <a href="<?= base_url('rekammedis/detail/') . $row->idRekamMedis; ?>" class="btn btn-default btn-sm">
                                         <i class="fas fa-eye"></i>
                                     </a>
-                                    <a href="<?= base_url('laporan/detail_rm/') . $row->idRekamMedis; ?>" class="btn btn-default btn-sm">
+                                    <a target="_blank" href="<?= base_url('laporan/detail_rm/') . $row->idRekamMedis; ?>" class="btn btn-default btn-sm">
                                         <i class="fas fa-print"></i>
                                     </a>
                                     <a href="<?= base_url('rekammedis/edit/') . $row->idRekamMedis; ?>" class="btn btn-default btn-sm">
