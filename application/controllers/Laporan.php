@@ -46,22 +46,20 @@ class Laporan extends CI_Controller
         // Memberikan space kebawah agar tidak terlalu rapat
         $pdf->Cell(10, 7, '', 0, 1);
         $pdf->SetFont('Arial', 'B', 10);
-        $pdf->Cell(25, 6, 'Id Pasien', 1, 0, 'C');
-        $pdf->Cell(25, 6, 'Nama Pasien', 1, 0, 'C');
-        $pdf->Cell(35, 6, 'Jenis Kelamin', 1, 0, 'C');
-        $pdf->Cell(35, 6, 'Email', 1, 0, 'C');
-        $pdf->Cell(35, 6, 'No Telpon', 1, 0, 'C');
-        $pdf->Cell(35, 6, 'Alamat', 1, 1, 'C');
+        $pdf->Cell(40, 6, 'Nama Pasien', 1, 0, 'C');
+        $pdf->Cell(30, 6, 'Jenis Kelamin', 1, 0, 'C');
+        $pdf->Cell(50, 6, 'Email', 1, 0, 'C');
+        $pdf->Cell(30, 6, 'No Telpon', 1, 0, 'C');
+        $pdf->Cell(40, 6, 'Alamat', 1, 1, 'C');
 
         $pdf->SetFont('Arial', '', 10);
         $pasien = $this->MainModel->get('pasien');
         foreach ($pasien as $row) {
-            $pdf->Cell(25, 6, $row->idPasien, 1, 0, 'C');
-            $pdf->Cell(25, 6, $row->namaPasien, 1, 0, 'C');
-            $pdf->Cell(35, 6, $row->jenisKelamin, 1, 0, 'C');
-            $pdf->Cell(35, 6, $row->email, 1, 0, 'C');
-            $pdf->Cell(35, 6, $row->noTelp, 1, 0, 'C');
-            $pdf->Cell(35, 6, $row->alamat, 1, 1, 'C');
+            $pdf->Cell(40, 6, ellipsis($row->namaPasien, 18), 1, 0, 'L');
+            $pdf->Cell(30, 6, $row->jenisKelamin, 1, 0, 'L');
+            $pdf->Cell(50, 6, ellipsis($row->email, 25), 1, 0, 'L');
+            $pdf->Cell(30, 6, $row->noTelp, 1, 0, 'C');
+            $pdf->Cell(40, 6, ellipsis($row->alamat, 18), 1, 1, 'L');
         }
         $pdf->Output();
     }
@@ -80,22 +78,20 @@ class Laporan extends CI_Controller
         // Memberikan space kebawah agar tidak terlalu rapat
         $pdf->Cell(10, 7, '', 0, 1);
         $pdf->SetFont('Arial', 'B', 10);
-        $pdf->Cell(25, 6, 'NIP', 1, 0, 'C');
-        $pdf->Cell(25, 6, 'Nama Dokter', 1, 0, 'C');
+        $pdf->Cell(40, 6, 'NIP', 1, 0, 'C');
+        $pdf->Cell(50, 6, 'Nama Dokter', 1, 0, 'C');
         $pdf->Cell(35, 6, 'Spesialis', 1, 0, 'C');
-        $pdf->Cell(35, 6, 'Email', 1, 0, 'C');
-        $pdf->Cell(35, 6, 'No Telpon', 1, 0, 'C');
+        $pdf->Cell(30, 6, 'No Telpon', 1, 0, 'C');
         $pdf->Cell(35, 6, 'Alamat', 1, 1, 'C');
 
         $pdf->SetFont('Arial', '', 10);
         $dokter = $this->MainModel->get('dokter');
         foreach ($dokter as $row) {
-            $pdf->Cell(25, 6, $row->nip, 1, 0, 'C');
-            $pdf->Cell(25, 6, $row->namaDokter, 1, 0, 'C');
-            $pdf->Cell(35, 6, $row->spesialis, 1, 0, 'C');
-            $pdf->Cell(35, 6, $row->email, 1, 0, 'C');
-            $pdf->Cell(35, 6, $row->noTelp, 1, 0, 'C');
-            $pdf->Cell(35, 6, $row->alamat, 1, 1, 'C');
+            $pdf->Cell(40, 6, $row->nip, 1, 0, 'C');
+            $pdf->Cell(50, 6, ellipsis($row->namaDokter, 25), 1, 0, 'L');
+            $pdf->Cell(35, 6, $row->spesialis, 1, 0, 'L');
+            $pdf->Cell(30, 6, $row->noTelp, 1, 0, 'C');
+            $pdf->Cell(35, 6, ellipsis($row->alamat, 15), 1, 1, 'L');
         }
         $pdf->Output();
     }
@@ -114,17 +110,15 @@ class Laporan extends CI_Controller
         // Memberikan space kebawah agar tidak terlalu rapat
         $pdf->Cell(10, 7, '', 0, 1);
         $pdf->SetFont('Arial', 'B', 10);
-        $pdf->Cell(45, 6, 'Id Obat', 1, 0, 'C');
         $pdf->Cell(50, 6, 'Nama Obat', 1, 0, 'C');
-        $pdf->Cell(50, 6, 'Harga', 1, 0, 'C');
-        $pdf->Cell(45, 6, 'Keterangan', 1, 1, 'C');
+        $pdf->Cell(90, 6, 'Keterangan', 1, 0, 'C');
+        $pdf->Cell(50, 6, 'Harga', 1, 1, 'C');
         $pdf->SetFont('Arial', '', 10);
         $obat = $this->MainModel->get('obat');
         foreach ($obat as $row) {
-            $pdf->Cell(45, 6, $row->idObat, 1, 0, 'C');
-            $pdf->Cell(50, 6, $row->namaObat, 1, 0, 'C');
-            $pdf->Cell(50, 6, $row->harga, 1, 0, 'C');
-            $pdf->Cell(45, 6, $row->keterangan, 1, 1, 'C');
+            $pdf->Cell(50, 6, $row->namaObat, 1, 0, 'L');
+            $pdf->Cell(90, 6, ellipsis($row->keterangan, 40), 1, 0, 'L');
+            $pdf->Cell(50, 6, "Rp. " . number_format($row->harga, 0, ',', '.'), 1, 1, 'R');
         }
         $pdf->Output();
     }
@@ -143,16 +137,14 @@ class Laporan extends CI_Controller
         // Memberikan space kebawah agar tidak terlalu rapat
         $pdf->Cell(10, 7, '', 0, 1);
         $pdf->SetFont('Arial', 'B', 10);
-        $pdf->Cell(65, 6, 'Id Poliklinik', 1, 0, 'C');
-        $pdf->Cell(65, 6, 'Nama Poliklinik', 1, 0, 'C');
-        $pdf->Cell(60, 6, 'Gedung', 1, 1, 'C');
+        $pdf->Cell(120, 6, 'Nama Poliklinik', 1, 0, 'C');
+        $pdf->Cell(70, 6, 'Gedung', 1, 1, 'C');
 
         $pdf->SetFont('Arial', '', 10);
         $poliklinik = $this->MainModel->get('poliklinik');
         foreach ($poliklinik as $row) {
-            $pdf->Cell(65, 6, $row->idPoliklinik, 1, 0, 'C');
-            $pdf->Cell(65, 6, $row->namaPoliklinik, 1, 0, 'C');
-            $pdf->Cell(60, 6, $row->gedung, 1, 1, 'C');
+            $pdf->Cell(120, 6, $row->namaPoliklinik, 1, 0, 'L');
+            $pdf->Cell(70, 6, $row->gedung, 1, 1, 'L');
         }
         $pdf->Output();
     }
@@ -179,9 +171,9 @@ class Laporan extends CI_Controller
         // Memberikan space kebawah agar tidak terlalu rapat
         $pdf->Cell(10, 7, '', 0, 1);
         $pdf->SetFont('Arial', 'B', 10);
-        $pdf->Cell(45, 6, 'Id Rekam Medis', 1, 0, 'C');
+        $pdf->Cell(35, 6, 'Id Rekam Medis', 1, 0, 'C');
         $pdf->Cell(45, 6, 'Nama Pasien', 1, 0, 'C');
-        $pdf->Cell(45, 6, 'Nama Dokter', 1, 0, 'C');
+        $pdf->Cell(55, 6, 'Nama Dokter', 1, 0, 'C');
         $pdf->Cell(45, 6, 'Tanggal Periksa', 1, 1, 'C');
 
         $pdf->SetFont('Arial', '', 10);
@@ -195,10 +187,10 @@ class Laporan extends CI_Controller
         }
         $rekam_medis = $this->db->get()->result();
         foreach ($rekam_medis as $row) {
-            $pdf->Cell(45, 6, $row->idRekamMedis, 1, 0, 'C');
-            $pdf->Cell(45, 6, $row->namaPasien, 1, 0, 'C');
-            $pdf->Cell(45, 6, $row->namaDokter, 1, 0, 'C');
-            $pdf->Cell(45, 6, $row->tglPeriksa, 1, 1, 'C');
+            $pdf->Cell(35, 6, $row->idRekamMedis, 1, 0, 'L');
+            $pdf->Cell(45, 6, ellipsis($row->namaPasien, 20), 1, 0, 'L');
+            $pdf->Cell(55, 6, ellipsis($row->namaDokter, 25), 1, 0, 'L');
+            $pdf->Cell(45, 6, indo_date($row->tglPeriksa), 1, 1, 'L');
         }
         $pdf->Output();
     }
@@ -237,7 +229,7 @@ class Laporan extends CI_Controller
         $pdf->SetFont('Arial', 'B', 10);
         $pdf->Cell(45, 7, "Dokter", 1, 0);
         $pdf->SetFont('Arial', '', 10);
-        $pdf->Cell(45, 7, $detail->namaDokter, 1, 1, 'R');
+        $pdf->Cell(45, 7, ellipsis($detail->namaDokter, 25), 1, 1, 'R');
 
         $pdf->SetFont('Arial', 'B', 10);
         $pdf->Cell(45, 7, "Poliklinik", 1, 0);

@@ -68,6 +68,9 @@
 <script src="<?= base_url(); ?>assets/plugins/chart.js/Chart.min.js"></script>
 <!-- gijgo datepicker -->
 <script src="<?= base_url(); ?>assets/plugins/gijgo/js/gijgo.min.js"></script>
+<!-- Sweetalert2 -->
+<script src="<?= base_url(); ?>assets/plugins/sweetalert2/sweetalert2.all.min.js"></script>
+<?= $this->session->flashdata('pesan'); ?>
 <script type="text/javascript">
     $(function() {
         $('.gijgo').datepicker({

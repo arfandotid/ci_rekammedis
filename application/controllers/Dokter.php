@@ -22,9 +22,11 @@ class Dokter extends CI_Controller
         template_view('dokter/data', $data);
     }
 
-    private function _validasi()
+    private function _validasi($add = true)
     {
-        $this->form_validation->set_rules('nip', 'NIP', 'required|trim|numeric');
+        if ($add) {
+            $this->form_validation->set_rules('nip', 'NIP', 'required|trim|numeric|min_length[18]|max_length[18]');
+        }
         $this->form_validation->set_rules('namaDokter', 'Nama Dokter', 'required|trim');
         $this->form_validation->set_rules('spesialis', 'Spesialis', 'required|trim');
         $this->form_validation->set_rules('email', 'Email', 'required|trim|valid_email');
@@ -41,8 +43,14 @@ class Dokter extends CI_Controller
             template_view('dokter/add', $data);
         } else {
             $input = $this->input->post(null, true);
-            $this->MainModel->insert('dokter', $input);
-            redirect('dokter');
+            $save = $this->MainModel->insert('dokter', $input);
+            if ($save) {
+                msgBox('save');
+                redirect('dokter');
+            } else {
+                msgBox('save', false);
+                redirect('dokter/add');
+            }
         }
     }
 
@@ -52,12 +60,19 @@ class Dokter extends CI_Controller
         $data['title']  = "Edit Dokter";
         $data['dokter'] = $this->MainModel->get_where('dokter', ['nip' => $nip]);
 
-        $this->_validasi();
+        $this->_validasi(false);
         if ($this->form_validation->run() == false) {
             template_view('dokter/edit', $data);
         } else {
             $input = $this->input->post(null, true);
-            $this->MainModel->update('dokter', $input, ['nip' => $nip]);
+            $edit = $this->MainModel->update('dokter', $input, ['nip' => $nip]);
+            if ($edit) {
+                msgBox('edit');
+                redirect('dokter');
+            } else {
+                msgBox('edit', false);
+                redirect('dokter/edit/' . $nip);
+            }
             redirect('dokter');
         }
     }
@@ -65,7 +80,12 @@ class Dokter extends CI_Controller
     public function delete($getNip)
     {
         $nip = encode_php_tags($getNip);
-        $this->MainModel->delete('dokter', ['nip' => $nip]);
+        $del = $this->MainModel->delete('dokter', ['nip' => $nip]);
+        if ($del) {
+            msgBox('delete');
+        } else {
+            msgBox('delete', false);
+        }
         redirect('dokter');
     }
 }

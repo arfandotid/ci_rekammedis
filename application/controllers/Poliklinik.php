@@ -16,18 +16,12 @@ class Poliklinik extends CI_Controller
         template_view('poliklinik/data', $data);
     }
 
-    public function delete($poliId)
-    {
-        $id = encode_php_tags($poliId);
-        $this->MainModel->delete('poliklinik', array('idPoliklinik' => $id));
-        redirect('poliklinik');
-    }
-
     private function _validasi()
     {
         $this->form_validation->set_rules('namaPoliklinik', 'Nama Poliklinik', 'required');
         $this->form_validation->set_rules('gedung', 'Gedung', 'required');
     }
+
     public function add()
     {
         $data['title'] = "Tambah Poliklinik";
@@ -37,8 +31,14 @@ class Poliklinik extends CI_Controller
             template_view('poliklinik/add', $data);
         } else {
             $input = $this->input->post(null, true);
-            $this->MainModel->insert('poliklinik', $input);
-            redirect('poliklinik');
+            $save = $this->MainModel->insert('poliklinik', $input);
+            if ($save) {
+                msgBox('save');
+                redirect('poliklinik');
+            } else {
+                msgBox('save', false);
+                redirect('poliklinik/add');
+            }
         }
     }
 
@@ -54,8 +54,26 @@ class Poliklinik extends CI_Controller
             template_view('poliklinik/edit', $data);
         } else {
             $input = $this->input->post(null, true);
-            $this->MainModel->update('poliklinik', $input, array('idPoliklinik' => $id));
-            redirect('poliklinik');
+            $edit = $this->MainModel->update('poliklinik', $input, array('idPoliklinik' => $id));
+            if ($edit) {
+                msgBox('edit');
+                redirect('poliklinik');
+            } else {
+                msgBox('edit', false);
+                redirect('poliklinik/edit/' . $id);
+            }
         }
+    }
+
+    public function delete($poliId)
+    {
+        $id = encode_php_tags($poliId);
+        $del = $this->MainModel->delete('poliklinik', array('idPoliklinik' => $id));
+        if ($del) {
+            msgBox('delete');
+        } else {
+            msgBox('delete', false);
+        }
+        redirect('poliklinik');
     }
 }

@@ -40,7 +40,12 @@ class User extends CI_Controller
         $data = [
             'active' => $toggle
         ];
-        $this->MainModel->update('user', $data, ['idUser' => $id]);
+        $edit = $this->MainModel->update('user', $data, ['idUser' => $id]);
+        if ($edit) {
+            msgBox('edit');
+        } else {
+            msgBox('edit', false);
+        }
         redirect('user');
     }
 
@@ -71,8 +76,14 @@ class User extends CI_Controller
             $input['active'] = 1;
             unset($input['password2']);
 
-            $this->MainModel->insert('user', $input);
-            redirect('user');
+            $save = $this->MainModel->insert('user', $input);
+            if ($save) {
+                msgBox('save');
+                redirect('user');
+            } else {
+                msgBox('save', false);
+                redirect('user/add');
+            }
         }
     }
 
@@ -88,8 +99,14 @@ class User extends CI_Controller
             template_view('user/edit', $data);
         } else {
             $input = $this->input->post(null, true);
-            $this->MainModel->update('user', $input, ['idUser' => $id]);
-            redirect('user');
+            $edit = $this->MainModel->update('user', $input, ['idUser' => $id]);
+            if ($edit) {
+                msgBox('edit');
+                redirect('user');
+            } else {
+                msgBox('edit', false);
+                redirect('user/edit/' . $id);
+            }
         }
     }
 
@@ -97,7 +114,12 @@ class User extends CI_Controller
     {
         is_role(1, true);
         $id = encode_php_tags($userId);
-        $this->MainModel->delete('user', ['idUser' => $id]);
+        $del = $this->MainModel->delete('user', ['idUser' => $id]);
+        if ($del) {
+            msgBox('delete');
+        } else {
+            msgBox('delete', false);
+        }
         redirect('user');
     }
 
@@ -116,7 +138,7 @@ class User extends CI_Controller
             $input = $this->input->post(null, true);
             if (password_verify($input['password_lama'], $usr_pass)) {
                 $newpass = password_hash($input['password'], PASSWORD_DEFAULT);
-                $this->MainModel->update('user', ['password' => $newpass], ['idUser' => $this->userdata->idUser]);
+                $this->MainModel->update('user', ['password' => $newpass], ['idUser' => userdata('idUser')]);
 
                 setMsg('success', 'Password anda berhasil diubah.');
                 redirect('user/ubahPassword');

@@ -21,7 +21,12 @@
                 </div>
                 <div class="form-group">
                     <label for="harga">Harga Obat</label>
-                    <input value="<?= set_value('harga', $obat->harga); ?>" type="text" name="harga" id="harga" class="form-control" placeholder="Harga Obat">
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text">Rp.</span>
+                        </div>
+                        <input value="<?= set_value('harga', $obat->harga); ?>" type="text" name="harga" id="harga" class="form-control" placeholder="Harga Obat">
+                    </div>
                     <?= form_error('harga'); ?>
                 </div>
 

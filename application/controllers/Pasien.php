@@ -39,8 +39,14 @@ class Pasien extends CI_Controller
             template_view('pasien/add', $data);
         } else {
             $input = $this->input->post(null, true);
-            $this->MainModel->insert('pasien', $input);
-            redirect('pasien');
+            $save = $this->MainModel->insert('pasien', $input);
+            if ($save) {
+                msgBox('save');
+                redirect('pasien');
+            } else {
+                msgBox('save', false);
+                redirect('pasien/add');
+            }
         }
     }
 
@@ -55,15 +61,26 @@ class Pasien extends CI_Controller
             template_view('pasien/edit', $data);
         } else {
             $input = $this->input->post(null, true);
-            $this->MainModel->update('pasien', $input, ['idPasien' => $id]);
-            redirect('pasien');
+            $edit = $this->MainModel->update('pasien', $input, ['idPasien' => $id]);
+            if ($edit) {
+                msgBox('edit');
+                redirect('pasien');
+            } else {
+                msgBox('edit', false);
+                redirect('pasien/edit/' . $pasienId);
+            }
         }
     }
 
     public function delete($pasienId)
     {
         $id = encode_php_tags($pasienId);
-        $this->MainModel->delete('pasien', ['idPasien' => $id]);
+        $del = $this->MainModel->delete('pasien', ['idPasien' => $id]);
+        if ($del) {
+            msgBox('delete');
+        } else {
+            msgBox('delete', false);
+        }
         redirect('pasien');
     }
 }

@@ -16,7 +16,7 @@
                 <?= form_open(); ?>
                 <div class="form-group">
                     <label for="nip">NIP</label>
-                    <input value="<?= set_value('nip', $dokter->nip); ?>" type="text" name="nip" id="nip" class="form-control" placeholder="Nama Pasien">
+                    <input readonly value="<?= set_value('nip', $dokter->nip); ?>" type="text" id="nip" class="form-control" placeholder="Nama Pasien">
                     <?= form_error('nip'); ?>
                 </div>
                 <div class="form-group">

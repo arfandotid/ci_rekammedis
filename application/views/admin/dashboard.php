@@ -60,7 +60,7 @@
                     <div class="text-left">
                         <h3 class="card-title">Data Rekam Medis</h3>
                         <span class="text-muted small d-block">
-                            <?= date('F Y') ?>
+                            <?= date('Y') ?>
                         </span>
                     </div>
                     <a class="btn btn-default btn-sm align-self-center" href="<?= base_url('laporan'); ?>"><i class="fas fa-print"></i> Cetak Laporan</a>

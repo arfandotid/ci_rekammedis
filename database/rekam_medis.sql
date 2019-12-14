@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Dec 10, 2019 at 02:23 PM
+-- Generation Time: Dec 14, 2019 at 07:31 AM
 -- Server version: 10.4.8-MariaDB
 -- PHP Version: 7.3.11
 
@@ -29,7 +29,7 @@ SET time_zone = "+00:00";
 --
 
 CREATE TABLE `dokter` (
-  `nip` char(16) NOT NULL,
+  `nip` char(18) NOT NULL,
   `namaDokter` varchar(128) NOT NULL,
   `spesialis` varchar(128) NOT NULL,
   `email` varchar(128) NOT NULL,
@@ -42,7 +42,9 @@ CREATE TABLE `dokter` (
 --
 
 INSERT INTO `dokter` (`nip`, `namaDokter`, `spesialis`, `email`, `noTelp`, `alamat`) VALUES
-('1231', 'Asyiel', 'Kesehatans', 'asyil@admin.coma', '01823712832', 'Pintu Ledengs');
+('196401181990102001', 'Sudarti, Sp.M.', 'Umum', 'sudarti.d@gmail.com', '081293719812', 'Bojong Parung'),
+('197108282006041016', 'Iman Nugroho, M.Kes, Sp.P', 'Kesehatan', 'imannugroho@gmail.com', '082218890911', 'Bogor Barat'),
+('197828179876883421', 'Kirisu Mafuyu', 'Kecantikan', 'mafuyu.kirisu@gmail.com', '082298190919', 'Laladon');
 
 -- --------------------------------------------------------
 
@@ -62,8 +64,14 @@ CREATE TABLE `obat` (
 --
 
 INSERT INTO `obat` (`idObat`, `namaObat`, `harga`, `keterangan`) VALUES
-(1, 'Mixaghrip', 2500, 'Obat serba guna'),
-(3, 'Panadol', 1000, 'Obat Pusing Kepala');
+(5, 'Enervon C', 7000, 'Suplemen untuk membantu menjaga daya tahan tubuh.'),
+(6, 'Betadine', 5000, 'Mencegah dan mengobati infeksi'),
+(7, 'Benzalkonium Chloride', 15000, 'Menghambat dan membunuh pertumbuhan mikroorganisme'),
+(8, 'Counterpain', 3000, 'Meredakan nyeri otot dan nyeri sendi'),
+(9, 'Paracetamol', 4000, 'Meredakan rasa sakit dan demam'),
+(10, 'Promag', 8000, 'Obat untuk sakit maag'),
+(11, 'Kalpanax', 5000, 'Mengatasi jamur kulit, seperti panu, kutu air, dan kurap.'),
+(12, 'Voltaren', 9000, 'Meredakan nyeri dan peradangan');
 
 -- --------------------------------------------------------
 
@@ -85,9 +93,11 @@ CREATE TABLE `pasien` (
 --
 
 INSERT INTO `pasien` (`idPasien`, `namaPasien`, `jenisKelamin`, `email`, `noTelp`, `alamat`) VALUES
-(1, 'Jenal', 'Laki-laki', 'jenal@gmail.com', '08197236817', 'Ciampea'),
-(3, 'Ikri', 'Laki-laki', 'ikri@gmail.com', '081927311231', 'Pancasan Timur'),
-(4, 'Ikbal', 'Laki-laki', 'ikbal@gmail.com', '0182837123123', 'Warung Borong');
+(5, 'Oreki Houtarou', 'Laki-laki', 'houtarou.oreki@yahoo.co.jp', '085678987652', 'Pancasan Timur'),
+(6, 'Chitanda Eru', 'Perempuan', 'eru.chitanda@gmail.com', '085678987652', 'Ciapus Encount'),
+(7, 'Shinomiya Kaguya', 'Perempuan', 'kaguya.shinomiya@gmail.com', '082288772269', 'Jakarta Barat'),
+(8, 'Midoriya Izuku', 'Laki-laki', 'deku@gmail.com', '089817297121', 'Ciomas'),
+(11, 'Saitama', 'Laki-laki', 'saitama@gmail.com', '087162716716', 'Pancasan Barat');
 
 -- --------------------------------------------------------
 
@@ -106,9 +116,12 @@ CREATE TABLE `poliklinik` (
 --
 
 INSERT INTO `poliklinik` (`idPoliklinik`, `namaPoliklinik`, `gedung`) VALUES
-(2, 'Mawar', 'baru'),
-(3, 'Melati', 'Gedung 1'),
-(4, 'Dahlia', 'Lama');
+(9, 'Poli Kebidanan dan Penyakit Kandungan', 'Lt. 2'),
+(10, 'Poli Anak', 'Lt. 2'),
+(11, 'Poli Penyakit Dalam', 'Lt. 2'),
+(12, 'Poli Mata', 'Lt. 3'),
+(13, 'Poli Psikologi', 'Lt. 3'),
+(14, 'Poli Lansia', 'Lt. 4');
 
 -- --------------------------------------------------------
 
@@ -119,7 +132,7 @@ INSERT INTO `poliklinik` (`idPoliklinik`, `namaPoliklinik`, `gedung`) VALUES
 CREATE TABLE `rekam_medis` (
   `idRekamMedis` char(15) NOT NULL,
   `pasienId` int(11) NOT NULL,
-  `dokterNip` char(16) NOT NULL,
+  `dokterNip` char(18) NOT NULL,
   `poliklinikId` int(11) NOT NULL,
   `keluhan` text NOT NULL,
   `diagnosa` text NOT NULL,
@@ -132,7 +145,7 @@ CREATE TABLE `rekam_medis` (
 --
 
 INSERT INTO `rekam_medis` (`idRekamMedis`, `pasienId`, `dokterNip`, `poliklinikId`, `keluhan`, `diagnosa`, `tglPeriksa`, `userId`) VALUES
-('RM19120600001', 4, '1231', 3, 'zxa', 'asda', '2019-12-06', 4);
+('RM2019121400001', 8, '197828179876883421', 10, 'Panas Njirr', 'Demam', '2019-12-14', 4);
 
 -- --------------------------------------------------------
 
@@ -150,7 +163,8 @@ CREATE TABLE `rm_obat` (
 --
 
 INSERT INTO `rm_obat` (`idRekamMedis`, `idObat`) VALUES
-('RM19120600001', 1);
+('RM2019121400001', 6),
+('RM2019121400001', 9);
 
 -- --------------------------------------------------------
 
@@ -172,12 +186,11 @@ CREATE TABLE `user` (
 --
 
 INSERT INTO `user` (`idUser`, `fullName`, `username`, `password`, `role`, `active`) VALUES
-(1, 'Super Admin', 'admin', '$2y$10$jdB.GCHaKG1VLIn01RUhaeNZ7M/J9V4af9jwy9iKDytYTgdJkdrs6', 1, 1),
-(4, 'Arfan', 'arfan', '$2y$10$uIJJAiZ3eFhKOYoLxJ9wEeF26UjJNPuEJGXgLQf.uzyfLjanDUify', 2, 1),
+(1, 'Super Admin', 'admin', '$2y$10$KkmUDHPN0UsOpANFCTMUsOO0s8s1.xUUJtJhO9lnK.mcMrCYIQz.q', 1, 1),
+(4, 'Arfan', 'arfan', '$2y$10$UXGBRCrquFzZDYCpFsRvdO0EA5uRiTvCknDHgp5J4/qhVUC2nJBKC', 2, 1),
 (5, 'Dobleh', 'dobleh', '$2y$10$v14nXZ8Pop5N6Ia0lw3use0TtN/FRCquBOoivmh41aWHpXfRHf2Fe', 2, 1),
-(6, 'Jamal', 'jamal', '$2y$10$5MT8mlGxNT3MTDZXyDFS1u9AW7dqLxYkkVyDBEumJzJvaQmjLY6nq', 1, 0),
-(7, 'Kabur', 'kabur', '$2y$10$ht5DQXFcgNJNtEL3cAryieqcRa78VlMJZbqgTnV2lGWFYHJtxkGDq', 2, 1),
-(8, 'Arif', 'arif', '$2y$10$BPPtML/Irn2S/SpbkwfDHeToo1hu9VirjoCPn0AQZZWTSm0KsNiVm', 2, 0);
+(6, 'Jamal', 'jamal', '$2y$10$5MT8mlGxNT3MTDZXyDFS1u9AW7dqLxYkkVyDBEumJzJvaQmjLY6nq', 2, 0),
+(7, 'Kabur', 'kabur', '$2y$10$ht5DQXFcgNJNtEL3cAryieqcRa78VlMJZbqgTnV2lGWFYHJtxkGDq', 2, 1);
 
 --
 -- Indexes for dumped tables
@@ -214,8 +227,8 @@ ALTER TABLE `rekam_medis`
   ADD PRIMARY KEY (`idRekamMedis`),
   ADD KEY `userId` (`userId`),
   ADD KEY `pasienId` (`pasienId`,`dokterNip`,`poliklinikId`),
-  ADD KEY `rekam_medis_ibfk_2` (`dokterNip`),
-  ADD KEY `rekam_medis_ibfk_3` (`poliklinikId`);
+  ADD KEY `rekam_medis_ibfk_3` (`poliklinikId`),
+  ADD KEY `rekam_medis_ibfk_2` (`dokterNip`);
 
 --
 -- Indexes for table `rm_obat`
@@ -238,25 +251,25 @@ ALTER TABLE `user`
 -- AUTO_INCREMENT for table `obat`
 --
 ALTER TABLE `obat`
-  MODIFY `idObat` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `idObat` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
 -- AUTO_INCREMENT for table `pasien`
 --
 ALTER TABLE `pasien`
-  MODIFY `idPasien` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `idPasien` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT for table `poliklinik`
 --
 ALTER TABLE `poliklinik`
-  MODIFY `idPoliklinik` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `idPoliklinik` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
 -- AUTO_INCREMENT for table `user`
 --
 ALTER TABLE `user`
-  MODIFY `idUser` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `idUser` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- Constraints for dumped tables

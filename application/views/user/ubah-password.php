@@ -5,7 +5,7 @@
                 <h3 class="card-title">Form <?= $title; ?></h3>
 
                 <div class="card-tools">
-                    <a href="<?= base_url('user') ?>" class="btn btn-tool">
+                    <a href="<?= base_url('dashboard') ?>" class="btn btn-tool">
                         <i class="fas fa-times"></i>
                     </a>
                 </div>

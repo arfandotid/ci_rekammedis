@@ -80,3 +80,42 @@ function indo_date($date, $print_day = false)
     }
     return $nice_date;
 }
+
+function ellipsis($text, $length)
+{
+    $out = strlen($text) > $length ? substr($text, 0, $length) . "..." : $text;
+    return $out;
+}
+
+function msgBox($msg = "save", $success = true)
+{
+    switch ($msg) {
+        case "save":
+            $pesan = $success ? "Data berhasil disimpan!" : "Gagal menyimpan data!";
+            break;
+        case "edit":
+            $pesan = $success ? "Data berhasil diedit!" : "Gagal mengedit data!";
+            break;
+        case "delete":
+            $pesan = $success ? "Data berhasil dihapus!" : "Gagal menghapus data!";
+            break;
+        default:
+            $pesan = "";
+            break;
+    }
+    $title = $success ? "Berhasil!" : "Gagal!";
+    $type = $success ? "success" : "error";
+    $alert = "
+        <script type='text/javascript'>
+        $(document).ready(function() {
+            Swal.fire(
+                '{$title}',
+                '{$pesan}',
+                '{$type}'
+            );
+        });
+        </script>
+    ";
+    $ci = get_instance();
+    return $ci->session->set_flashdata('pesan', $alert);
+}

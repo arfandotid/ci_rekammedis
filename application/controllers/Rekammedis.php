@@ -81,6 +81,7 @@ class Rekammedis extends CI_Controller
                 ];
             }
             $this->MainModel->insert_batch('rm_obat', $obat);
+            msgBox('save');
             redirect('rekammedis');
         }
     }
@@ -128,6 +129,7 @@ class Rekammedis extends CI_Controller
                 ];
             }
             $this->MainModel->insert_batch('rm_obat', $obat);
+            msgBox('edit');
             redirect('rekammedis');
         }
     }
@@ -135,7 +137,12 @@ class Rekammedis extends CI_Controller
     public function delete($rmId)
     {
         $id = encode_php_tags($rmId);
-        $this->MainModel->delete('rekam_medis', ['idRekamMedis' => $id]);
+        $del = $this->MainModel->delete('rekam_medis', ['idRekamMedis' => $id]);
+        if ($del) {
+            msgBox('delete');
+        } else {
+            msgBox('delete', false);
+        }
         redirect('rekammedis');
     }
 

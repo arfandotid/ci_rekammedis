@@ -31,4 +31,11 @@ class Admin extends CI_Controller
 
         template_view('admin/dashboard', $data);
     }
+
+    public function blocked()
+    {
+        $data['title'] = "Not Found";
+
+        template_view('admin/blocked', $data);
+    }
 }

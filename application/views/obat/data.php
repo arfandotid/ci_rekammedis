@@ -37,7 +37,7 @@
                         <tr>
                             <td><?= $no++ ?>.</td>
                             <td><?= $row->namaObat ?></td>
-                            <td><?= $row->harga ?></td>
+                            <td>Rp. <?= number_format($row->harga, '0', ',', '.'); ?></td>
                             <td><?= $row->keterangan ?></td>
                             <td>
                                 <div class="btn-group">

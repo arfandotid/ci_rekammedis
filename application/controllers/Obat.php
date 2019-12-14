@@ -35,8 +35,14 @@ class Obat extends CI_Controller
             template_view('obat/add', $data);
         } else {
             $input = $this->input->post(null, true);
-            $this->MainModel->insert('obat', $input);
-            redirect('obat');
+            $save = $this->MainModel->insert('obat', $input);
+            if ($save) {
+                msgBox('save');
+                redirect('obat');
+            } else {
+                msgBox('save', false);
+                redirect('obat/add');
+            }
         }
     }
 
@@ -51,15 +57,26 @@ class Obat extends CI_Controller
             template_view('obat/edit', $data);
         } else {
             $input = $this->input->post(null, true);
-            $this->MainModel->update('obat', $input, ['idObat' => $id]);
-            redirect('obat');
+            $edit = $this->MainModel->update('obat', $input, ['idObat' => $id]);
+            if ($edit) {
+                msgBox('edit');
+                redirect('obat');
+            } else {
+                msgBox('edit', false);
+                redirect('obat/edit/' . $id);
+            }
         }
     }
 
     public function delete($obatId)
     {
         $id = encode_php_tags($obatId);
-        $this->MainModel->delete('obat', ['idObat' => $id]);
+        $del = $this->MainModel->delete('obat', ['idObat' => $id]);
+        if ($del) {
+            msgBox('delete');
+        } else {
+            msgBox('delete', false);
+        }
         redirect('obat');
     }
 }
