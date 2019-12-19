@@ -1,17 +1,17 @@
 <section class="content">
     <div class="error-page">
-        <h2 class="headline text-warning"> 404</h2>
+        <h2 class="headline text-warning">404</h2>
 
         <div class="error-content">
-            <h3><i class="fas fa-exclamation-triangle text-warning"></i> Oops! Page not found.</h3>
+            <h3><i class="fas fa-exclamation-triangle text-warning"></i> Oops! Halaman tidak ditemukan.</h3>
 
             <p>
-                We could not find the page you were looking for.
-                Meanwhile, you may <a href="<?= base_url('dashboard'); ?>">return to dashboard</a> or try using the search form.
+                Kami tidak dapat menemukan halaman yang anda maksud.
+                anda bisa <a href="<?= base_url('dashboard'); ?>">kembali ke dashboard</a>
             </p>
 
             <div class="text-center">
-                <a href="<?= base_url('dashboard'); ?>" class="btn btn-info">Home</a>
+                <a href="<?= base_url('dashboard'); ?>" class="btn btn-info">Dashboard</a>
             </div>
         </div>
         <!-- /.error-content -->

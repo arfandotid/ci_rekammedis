@@ -19,6 +19,9 @@ class Laporan extends CI_Controller
 
         $this->load->library('form_validation');
         $this->form_validation->set_rules('tanggal', 'Tanggal', 'required');
+        $this->form_validation->set_error_delimiters('<small class="text-danger">', '</small>');
+        $this->form_validation->set_message('required', 'Kolom {field} harus diisi');
+        $this->form_validation->set_message('numeric', 'Kolom {field} hanya bisa diisi oleh angka');
 
         if ($this->form_validation->run() == false) {
             template_view('laporan/index', $data);

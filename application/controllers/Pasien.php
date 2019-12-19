@@ -9,6 +9,9 @@ class Pasien extends CI_Controller
         is_logged_in();
         $this->load->library('form_validation');
         $this->form_validation->set_error_delimiters('<small class="text-danger">', '</small>');
+        $this->form_validation->set_message('required', 'Kolom {field} harus diisi');
+        $this->form_validation->set_message('numeric', 'Kolom {field} hanya bisa diisi oleh angka');
+        $this->form_validation->set_message('valid_email', 'Isi kolom {field} dengan email yang valid');
 
         // Jika bukan admin block
         is_role(2, true);

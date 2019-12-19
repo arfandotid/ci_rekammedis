@@ -10,7 +10,7 @@
     </div>
     <!-- To the right -->
     <div class="float-right">
-        <strong>Copyright &copy; <?= date('Y'); ?> &bull; Themes by <a href="https://adminlte.io">AdminLTE.io</a>.</strong> All rights reserved.
+        <strong>Copyright &copy; <?= date('Y'); ?> &bull; Tema oleh <a href="https://adminlte.io">AdminLTE.io</a>.</strong>
     </div>
 </footer>
 </div>
@@ -131,7 +131,7 @@
 $u1 = $this->uri->segment(1);
 $u2 = $u1 . '/' . $this->uri->segment(2);
 if ($u1 == "dashboard" || $u2 == "admin/index") :
-    ?>
+?>
     <script>
         function number_format(number, decimals, dec_point, thousands_sep) {
             // *     example: number_format(1234.56, 2, ',', ' ');

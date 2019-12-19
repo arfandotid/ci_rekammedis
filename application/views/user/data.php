@@ -21,8 +21,8 @@
                     <th style="width: 10px">#</th>
                     <th>Nama Lengkap</th>
                     <th>Username</th>
-                    <th>Role</th>
-                    <th>Active</th>
+                    <th>Akses</th>
+                    <th>Aktif</th>
                     <th>Aksi</th>
                 </tr>
             </thead>

@@ -7,6 +7,9 @@ class Poliklinik extends CI_Controller
         parent::__construct();
         is_logged_in();
         $this->load->library('form_validation');
+        $this->form_validation->set_error_delimiters('<small class="text-danger">', '</small>');
+        $this->form_validation->set_message('required', 'Kolom {field} harus diisi');
+        $this->form_validation->set_message('numeric', 'Kolom {field} hanya bisa diisi oleh angka');
     }
     public function index()
     {
